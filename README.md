@@ -85,6 +85,20 @@
 * Compatible with **Windows 7**, **Windows 8 / 8.1**, **Windows 10**, and **Windows 11** (64-bit).
 * Standalone offline installer built with Inno Setup. No external runtimes or dependencies needed.
 
+### 6. 🎨 Dynamic System Tray States & Multi-Resolution Icon (تفاعل أيقونة النظام الذكية)
+* **Smart Multi-Resolution (.ico)**:
+  * **256x256 & 128x128**: Full 3D Glassmorphism, glowing neon speed rays, and squircle frame for desktop shortcuts.
+  * **16x16, 24x24 & 32x32**: High-contrast, razor-sharp flat glowing arrow for the Windows system tray and browser extensions.
+* **Interactive Tray States (تفاعل الأيقونة المباشر بجوار الساعة)**:
+  * 🔵 **Active Download (تحميل نشط)**: أزرق سماوي نابض (Electric Cyan).
+  * 🟢 **All Completed (اكتمال كافة التنزيلات)**: أخضر زمردي متوهج (Emerald Green).
+  * 🟠 **Paused (متوقف مؤقتاً)**: برتقالي تحذيري (Amber / Orange).
+  * ⚪ **Idle (الوضع العادي)**: أزرق هادئ.
+
+<p align="center">
+  <img src="assets/tray_showcase.png" alt="NDM Dynamic Tray States" width="800">
+</p>
+
 ---
 
 ## 📥 Download & Installation / التحميل والتثبيت
