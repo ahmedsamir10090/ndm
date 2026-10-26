@@ -106,7 +106,7 @@
 ### Official Download Link:
 | File | Version | Size | Checksum (SHA-256) |
 | :--- | :---: | :---: | :--- |
-| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe) | `1.2.0` | `46.69 MB` | `82dfe13a55c72c199af46aeb35b4db21ef081d1f61dc5d9bb3b79eb5be70af81` |
+| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe) | `1.2.0` | `47.15 MB` | `cf3803fad4fd08379cf11d3600f7c027e4d430e4810cc0a5d3559fe001d33a79` |
 
 ### Quick Installation:
 1. Download **[NDM_Setup.exe](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe)**.
@@ -125,7 +125,7 @@ All binary releases are compiled securely and verified against malicious threats
   Get-FileHash -Algorithm SHA256 .\NDM_Setup.exe
   ```
   Expected Hash:
-  `82dfe13a55c72c199af46aeb35b4db21ef081d1f61dc5d9bb3b79eb5be70af81`
+  `cf3803fad4fd08379cf11d3600f7c027e4d430e4810cc0a5d3559fe001d33a79`
 
 ---
 
