@@ -1,9 +1,9 @@
 {
-  "version": "1.2.0",
+  "version": "1.1.0",
   "release_date": "2026-10-26",
-  "title": "Nasaq Download Manager 1.2.0",
-  "changelog": "• تغيير وتحديث الهوية إلى Nasaq Download Manager (NDM).\n• دعم التحديث التلقائي واليدوي المباشر.\n• تفعيل التحميل متعدد الاتصالات (8 إلى 32 اتصال) لكافة الملفات والفيديوهات.\n• ظهور جدول وحالة الاتصالات المتوازية في نافذة التحميل.\n• حساب وتثبيت أحجام الفيديوهات الحقيقية من السيرفر مباشرة.\n• دعم التحميل من يوتيوب ومختلف منصات الفيديو العالمية.\n• دعم تحميل أجزاء من الفيديو فقط (Clip Download).\n• دعم تحميل قوائم التشغيل والكورسات كاملة (Playlists & Courses).",
-  "download_url": "https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe",
+  "title": "Nasaq Download Manager 1.1.0",
+  "changelog": "• الإصدار الأولي الرسمي لبرنامج Nasaq Download Manager (NDM).\n• دعم التحديث التلقائي واليدوي المباشر.\n• تفعيل التحميل متعدد الاتصالات (8 إلى 32 اتصال) لكافة الملفات والفيديوهات.\n• ظهور جدول وحالة الاتصالات المتوازية في نافذة التحميل.\n• حساب وتثبيت أحجام الفيديوهات الحقيقية من السيرفر مباشرة.\n• دعم التحميل من يوتيوب ومختلف منصات الفيديو العالمية.\n• دعم تحميل أجزاء من الفيديو فقط (Clip Download).\n• دعم تحميل قوائم التشغيل والكورسات كاملة (Playlists & Courses).",
+  "download_url": "https://github.com/ahmedsamir10090/ndm/releases/download/v1.1.0/NDM_Setup.exe",
   "sha256": "cf3803fad4fd08379cf11d3600f7c027e4d430e4810cc0a5d3559fe001d33a79",
   "mandatory": false,
   "min_version": "1.0.0"

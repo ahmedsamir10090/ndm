@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
-    <img src="https://img.shields.io/badge/Release-v1.2.0-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.2.0">
+    <img src="https://img.shields.io/badge/Release-v1.1.0-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.1.0">
   </a>
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
     <img src="https://img.shields.io/badge/Platform-Windows%207%20%7C%208%20%7C%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows" alt="Supported OS">
@@ -24,8 +24,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe">
-    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.2.0)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
+  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.1.0/NDM_Setup.exe">
+    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.1.0)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
   </a>
   <a href="https://ahmedsamir10090.github.io/ndm/">
     <img src="https://img.shields.io/badge/%F0%9F%8C%90%20Live%20Website-ahmedsamir10090.github.io%2Fndm-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Live Website">

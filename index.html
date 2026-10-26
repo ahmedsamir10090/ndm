@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nasaq Download Manager (NDM) — مدير التحميل عالي الأداء لنظام Windows</title>
-  <meta name="description" content="Nasaq Download Manager (NDM v1.2.0) — أداة تحميل هندسية فائقة السرعة لنظام Windows بتجزئة متوازية حتى 32 مسار اتصال والتقاط الفيديو حتى 4K.">
+  <meta name="description" content="Nasaq Download Manager (NDM v1.1.0) — أداة تحميل هندسية فائقة السرعة لنظام Windows بتجزئة متوازية حتى 32 مسار اتصال والتقاط الفيديو حتى 4K.">
   <link rel="icon" type="image/png" href="assets/logo.png">
 
   <!-- Google Fonts: IBM Plex Sans Arabic + JetBrains Mono -->
@@ -651,19 +651,11 @@
   <!-- Header / Navbar -->
   <header>
     <div class="container nav-inner">
-      <div class="brand-mark">
-        <!-- Technical Precision SVG Logo -->
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="28" height="28" rx="6" fill="#121215" stroke="#27272A" stroke-width="1"/>
-          <!-- 3 converging dynamic data streams into arrow -->
-          <line x1="9" y1="6" x2="9" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="14" y1="5" x2="14" y2="15" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="19" y1="6" x2="19" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M7.5 14.5L14 21L20.5 14.5" stroke="#FAFAFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <a href="#" class="brand-mark" style="text-decoration: none;">
+        <img src="assets/logo.png" alt="Nasaq Logo" width="32" height="32" style="border-radius: 8px; border: 1px solid var(--border-subtle); display: block; object-fit: contain; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);">
         <span class="brand-title">نسق</span>
-        <span class="brand-badge mono" dir="ltr">NDM v1.2.0</span>
-      </div>
+        <span class="brand-badge mono" dir="ltr">NDM v1.1.0</span>
+      </a>
 
       <nav class="nav-links">
         <a href="#features">المعمارية والمميزات</a>
@@ -689,12 +681,18 @@
   <section class="hero">
     <div class="container" style="position: relative; z-index: 1;">
       
-      <!-- Release Pill -->
-      <div class="release-pill">
-        <div class="status-indicator"></div>
-        <span class="mono" dir="ltr" style="font-weight: 600; color: var(--text-primary);">RELEASE v1.2.0</span>
-        <span style="color: var(--border-highlight);">|</span>
-        <span>متاح الآن لمعمارية Windows 64-bit</span>
+      <!-- App Brand Logo & Release Pill -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 18px; margin-bottom: 24px;">
+        <div style="padding: 6px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 24px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
+          <img src="assets/logo.png" alt="Nasaq Download Manager" width="80" height="80" style="border-radius: 18px; display: block; object-fit: contain;">
+        </div>
+
+        <div class="release-pill" style="margin-bottom: 0;">
+          <div class="status-indicator"></div>
+          <span class="mono" dir="ltr" style="font-weight: 600; color: var(--text-primary);">RELEASE v1.1.0</span>
+          <span style="color: var(--border-highlight);">|</span>
+          <span>الإصدار الأولي المعتمد لمعمارية Windows 64-bit</span>
+        </div>
       </div>
 
       <!-- Main Headline -->
@@ -707,7 +705,7 @@
 
       <!-- Primary Actions -->
       <div class="hero-actions">
-        <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe" class="btn-primary" style="padding: 14px 28px;">
+        <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.1.0/NDM_Setup.exe" class="btn-primary" style="padding: 14px 28px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
@@ -715,7 +713,7 @@
           </svg>
           <div style="text-align: right;">
             <div>تحميل التثبيت المباشر (NDM_Setup.exe)</div>
-            <div class="mono" dir="ltr" style="font-size: 0.6875rem; color: #52525B; font-weight: 500;">v1.2.0 • 47.15 MB • Windows 7/8/10/11</div>
+            <div class="mono" dir="ltr" style="font-size: 0.6875rem; color: #52525B; font-weight: 500;">v1.1.0 • 47.15 MB • Windows 7/8/10/11</div>
           </div>
         </a>
 
@@ -780,14 +778,8 @@
         <!-- Realistic Windows 11 Title Bar -->
         <div class="win-titlebar">
           <div class="win-title-group">
-            <svg width="14" height="14" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="28" height="28" rx="6" fill="#18181C"/>
-              <line x1="9" y1="6" x2="9" y2="13" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
-              <line x1="14" y1="5" x2="14" y2="15" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
-              <line x1="19" y1="6" x2="19" y2="13" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
-              <path d="M7.5 14.5L14 21L20.5 14.5" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="mono" dir="ltr" style="color: var(--text-primary); font-weight: 500;">Nasaq Download Manager v1.2.0</span>
+            <img src="assets/logo.png" alt="NDM" width="16" height="16" style="border-radius: 3px; display: block; object-fit: contain;">
+            <span class="mono" dir="ltr" style="color: var(--text-primary); font-weight: 500;">Nasaq Download Manager v1.1.0</span>
             <span class="brand-badge mono" dir="ltr" style="border-color: #065F46; color: #10B981; background: rgba(16, 185, 129, 0.08);">32 Connections Active</span>
           </div>
 
@@ -1146,14 +1138,14 @@
       <div class="download-card">
         <span class="section-tag mono" dir="ltr">OFFICIAL DISTRIBUTION</span>
         <h2 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin: 8px 0 12px 0;">
-          تحميل النسخة الرسمية المعتمدة — نسق NDM v1.2.0
+          تحميل النسخة الرسمية المعتمدة — نسق NDM v1.1.0
         </h2>
         <p style="font-size: 0.9375rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 32px auto;">
           ملف تثبيت مستقل وشامل (Standalone Installer) لا يتطلب أي حزم خارجية.
         </p>
 
         <div>
-          <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe" class="btn-primary" style="padding: 16px 36px; font-size: 1rem;">
+          <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.1.0/NDM_Setup.exe" class="btn-primary" style="padding: 16px 36px; font-size: 1rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/>
@@ -1162,7 +1154,7 @@
             <span>تحميل التثبيت المباشر (NDM_Setup.exe)</span>
           </a>
           <div class="mono" dir="ltr" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">
-            v1.2.0 • 47.15 MB • Windows 7 / 8 / 10 / 11 (64-bit)
+            v1.1.0 • 47.15 MB • Windows 7 / 8 / 10 / 11 (64-bit)
           </div>
         </div>
 
@@ -1194,13 +1186,7 @@
   <footer>
     <div class="container footer-inner">
       <div style="display: flex; align-items: center; gap: 10px;">
-        <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="28" height="28" rx="6" fill="#18181C" stroke="#27272A" stroke-width="1"/>
-          <line x1="9" y1="6" x2="9" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="14" y1="5" x2="14" y2="15" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="19" y1="6" x2="19" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M7.5 14.5L14 21L20.5 14.5" stroke="#FAFAFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="assets/logo.png" alt="NDM Logo" width="22" height="22" style="border-radius: 5px; display: block; object-fit: contain;">
         <span class="mono" dir="ltr">Nasaq Download Manager (NDM) &copy; 2026</span>
       </div>
 
