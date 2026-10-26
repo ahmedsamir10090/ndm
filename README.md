@@ -33,9 +33,9 @@
 
 ## ⚡ What is Nasaq Download Manager (NDM)? / ما هو برنامج نسق؟
 
-**Nasaq Download Manager (NDM)** is a powerful, lightweight, and modern download accelerator designed for Windows. Built to provide lightning-fast download speeds with dynamic multi-threaded segmentation (up to 32 parallel connections), comprehensive media sniffing (YouTube, Shahid, Watch IT, CinemaNow, and more), full browser integration, and intelligent automatic in-app updates.
+**Nasaq Download Manager (NDM)** is a powerful, lightweight, and modern download accelerator designed for Windows. Built to provide lightning-fast download speeds with dynamic multi-threaded segmentation (up to 32 parallel connections), comprehensive media sniffing (YouTube, Facebook, X, Vimeo, and more), full browser integration, and intelligent automatic in-app updates.
 
-**نسق (NDM)** هو برنامج تحميل عصري فائق السرعة لنظام ويندوز، صُمم ليمنحك أقصى سرعة ممكنة عبر تقنية الاتصالات المتعددة الديناميكية (من 8 إلى 32 اتصال متوازي)، مع دعم متطور لتحميل الفيديوهات من كافة المنصات العالمية والعربية (يوتيوب، شاهد، واتش إت، سينما ناو وغيرها)، وتكامل كامل مع جميع المتصفحات، ونظام تحديثات تلقائي متكامل.
+**نسق (NDM)** هو برنامج تحميل عصري فائق السرعة لنظام ويندوز، صُمم ليمنحك أقصى سرعة ممكنة عبر تقنية الاتصالات المتعددة الديناميكية (من 8 إلى 32 اتصال متوازي)، مع دعم متطور لتحميل الفيديوهات من كافة المنصات العالمية والمحلية (يوتيوب، فيسبوك، إكس، تيك توك، فيميو وغيرها)، وتكامل كامل مع جميع المتصفحات، ونظام تحديثات تلقائي متكامل.
 
 ---
 
@@ -48,7 +48,7 @@
 
 ### 2. 🎬 Universal Media Sniffer & Video Grabber (التقاط الفيديوهات الشامل)
 * **Direct High-Resolution Video Sniffing**: Capture direct streams (`1080p`, `2K`, `4K`, `60fps`) with original audio track synchronization.
-* **Streaming Sites Support**: Full integration with **YouTube**, **Shahid VIP**, **Watch IT**, **CinemaNow**, **Facebook**, **X (Twitter)**, and **TikTok**.
+* **Streaming Sites Support**: Full integration with **YouTube**, **Facebook**, **X (Twitter)**, **TikTok**, **Vimeo**, and popular video platforms.
 * **Clip Download (تحميل جزء من الفيديو فقط)**: Crop any video by setting start and end timestamps directly before downloading.
 * **Playlist & Course Downloader (تحميل القوائم والكورسات كاملة)**: One-click batch download for entire video playlists, series, or educational courses.
 
