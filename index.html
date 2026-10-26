@@ -1,444 +1,1187 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nasaq Download Manager (NDM) - برنامج نسق للتحميل الخارق</title>
-  <meta name="description" content="Nasaq Download Manager (NDM) - أقوى برنامج تحميل مجاني فائق السرعة لنظام ويندوز مع دعم حتى 32 اتصال متوازي، وتكامل كامل مع جميع المتصفحات.">
+  <title>Nasaq Download Manager (NDM) — مدير التحميل عالي الأداء لنظام Windows</title>
+  <meta name="description" content="Nasaq Download Manager (NDM v1.2.0) — أداة تحميل هندسية فائقة السرعة لنظام Windows بتجزئة متوازية حتى 32 مسار اتصال والتقاط الفيديو حتى 4K.">
   <link rel="icon" type="image/png" href="assets/logo.png">
-  
-  <!-- Fonts -->
+
+  <!-- Google Fonts: IBM Plex Sans Arabic + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              glow: '#00d2ff'
-            },
-            dark: {
-              bg: '#0a0d14',
-              card: '#111726',
-              border: '#1f293d',
-              accent: '#172033'
-            }
-          },
-          fontFamily: {
-            sans: ['Cairo', 'Inter', 'sans-serif'],
-            mono: ['Consolas', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg-canvas: #09090B;
+      --bg-surface: #121215;
+      --bg-surface-hover: #18181C;
+      --bg-subtle: #1E1E24;
+      --border-subtle: #27272A;
+      --border-highlight: #3F3F46;
+      --text-primary: #FAFAFA;
+      --text-secondary: #A1A1AA;
+      --text-muted: #71717A;
+      --accent-primary: #10B981;
+      --accent-hover: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.12);
+      --font-sans: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+    }
+
     body {
-      background-color: #07090e;
-      color: #e2e8f0;
+      font-family: var(--font-sans);
+      background-color: var(--bg-canvas);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      min-height: 100vh;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    .gradient-glow {
-      background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.18) 0%, rgba(6, 182, 212, 0.08) 45%, transparent 75%);
+
+    /* Monospace Utility */
+    .mono {
+      font-family: var(--font-mono);
+      direction: ltr;
+      display: inline-block;
+      unicode-bidi: isolate;
+      font-feature-settings: "zero" 1;
     }
-    .glass-card {
-      background: rgba(17, 24, 39, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+
+    /* Structural Background Grid */
+    .bg-grid {
+      background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
     }
-    .screenshot-active {
-      border-color: #3b82f6 !important;
-      background: rgba(59, 130, 246, 0.15) !important;
-      color: #60a5fa !important;
+
+    /* Layout Containers */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-    .text-gradient {
-      background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: var(--text-primary);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--text-primary);
+      color: #09090B;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--text-primary);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+    .btn-primary:hover {
+      background: #E4E4E7;
+      border-color: #E4E4E7;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+    .btn-secondary:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-highlight);
+      transform: translateY(-1px);
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(9, 9, 11, 0.85);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .nav-inner {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .brand-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 80px 0 60px 0;
+      text-align: center;
+    }
+    .release-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: var(--accent-primary);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .hero-h1 {
+      font-size: clamp(2rem, 4.5vw, 3.75rem);
+      font-weight: 700;
+      max-width: 900px;
+      margin: 0 auto 20px auto;
+      color: var(--text-primary);
+    }
+    .hero-p {
+      font-size: clamp(1rem, 1.3vw, 1.1875rem);
+      max-width: 760px;
+      margin: 0 auto 36px auto;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .specs-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 14px 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      max-width: 880px;
+      margin: 0 auto;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px auto;
+    }
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .section-title {
+      font-size: clamp(1.625rem, 2.5vw, 2.25rem);
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+    }
+
+    /* Windows 11 Chrome Container */
+    .win-window {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    }
+    .win-titlebar {
+      height: 38px;
+      background: #101014;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      font-size: 0.75rem;
+      user-select: none;
+    }
+    .win-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .win-controls {
+      display: flex;
+      align-items: center;
+    }
+    .win-btn {
+      width: 44px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      cursor: default;
+    }
+    .win-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+    .win-btn-close:hover {
+      background: #E81123 !important;
+      color: #FFFFFF !important;
+    }
+
+    /* Segmented Tabs (Developer IDE Style) */
+    .tabs-bar {
+      display: flex;
+      flex-wrap: wrap;
+      background: #0E0E12;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 8px;
+      gap: 4px;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .tab-btn:hover {
+      color: var(--text-secondary);
+    }
+    .tab-btn.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--accent-primary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .screenshot-viewport {
+      background: #070709;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 480px;
+    }
+    .screenshot-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+      display: block;
+    }
+
+    /* Bento Grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .bento-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .bento-card:hover {
+      border-color: var(--border-highlight);
+      background: var(--bg-surface-hover);
+    }
+    .bento-col-2 {
+      grid-column: span 2;
+    }
+    .bento-card-title {
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bento-card-p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .micro-ui {
+      background: #09090C;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 0.75rem;
+    }
+
+    /* Thread matrix */
+    .thread-grid {
+      display: grid;
+      grid-template-columns: repeat(16, 1fr);
+      gap: 3px;
+      margin-top: 10px;
+    }
+    .thread-cell {
+      height: 18px;
+      border-radius: 2px;
+      background: var(--bg-subtle);
+    }
+    .thread-cell.filled {
+      background: var(--accent-primary);
+    }
+    .thread-cell.pulsing {
+      background: #34D399;
+      animation: pulseCell 1.4s infinite alternate ease-in-out;
+    }
+    @keyframes pulseCell {
+      0% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    /* Format Tags */
+    .tag-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tech-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      direction: ltr;
+    }
+
+    /* Timeline bar UI */
+    .timeline-bar {
+      height: 24px;
+      background: var(--bg-subtle);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .timeline-selection {
+      position: absolute;
+      left: 28%;
+      width: 44%;
+      height: 100%;
+      background: rgba(16, 185, 129, 0.25);
+      border-left: 2px solid var(--accent-primary);
+      border-right: 2px solid var(--accent-primary);
+    }
+
+    /* Deep Dive Section */
+    .deep-dive {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .check-list-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .telemetry-card {
+      background: #09090C;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+    .telemetry-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      color: var(--text-muted);
+    }
+    .telemetry-body {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+    .telemetry-cell {
+      height: 22px;
+      border-radius: 2px;
+      background: #1C1C22;
+    }
+    .telemetry-cell.active {
+      background: var(--accent-primary);
+    }
+    .telemetry-cell.partial {
+      background: #065F46;
+    }
+    .telemetry-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
+    }
+
+    /* Download Box */
+    .download-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 48px 32px;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .checksum-box {
+      margin-top: 32px;
+      background: #09090C;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px 20px;
+      text-align: right;
+    }
+    .checksum-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .checksum-code {
+      background: #141418;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.8125rem;
+      color: var(--text-primary);
+      word-break: break-all;
+      user-select: all;
+    }
+    .btn-copy {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-copy:hover {
+      background: var(--bg-surface-hover);
+      color: var(--text-primary);
+      border-color: var(--border-highlight);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 32px 0;
+      margin-top: 80px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .bento-col-2 {
+        grid-column: span 1;
+      }
+      .deep-dive {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+<body>
 
-  <!-- Glow Background -->
-  <div class="fixed inset-0 pointer-events-none gradient-glow z-0"></div>
+  <!-- Background Technical Grid -->
+  <div class="bg-grid" style="position: absolute; inset: 0; height: 800px; pointer-events: none; z-index: 0;"></div>
 
-  <!-- Navbar -->
-  <header class="sticky top-0 z-50 glass-card border-b border-dark-border/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      
-      <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <img src="assets/logo.png" alt="NDM Logo" class="w-11 h-11 rounded-xl shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
-        <div class="flex flex-col">
-          <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
-            Nasaq <span class="text-brand-500 font-black">NDM</span>
-          </span>
-          <span class="text-xs text-slate-400 font-medium">Nasaq Download Manager</span>
-        </div>
-      </a>
-
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
-        <a href="#features" class="hover:text-white transition-colors">المميزات</a>
-        <a href="#screenshots" class="hover:text-white transition-colors">لقطات حية من البرنامج</a>
-        <a href="#speed" class="hover:text-white transition-colors">تسريع 32 اتصال</a>
-        <a href="#download" class="hover:text-white transition-colors">التحميل والتثبيت</a>
-      </nav>
-
-      <!-- Language & CTA Button -->
-      <div class="flex items-center gap-3">
-        <button id="langToggle" class="px-3 py-1.5 rounded-lg border border-dark-border text-xs font-bold text-slate-300 hover:text-white hover:bg-dark-accent transition">
-          English
-        </button>
-        <a href="#download" class="relative group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5">
-          <span>تحميل NDM مجاناً</span>
-          <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
-        </a>
+  <!-- Header / Navbar -->
+  <header>
+    <div class="container nav-inner">
+      <div class="brand-mark">
+        <!-- Technical Precision SVG Logo -->
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="28" height="28" rx="6" fill="#121215" stroke="#27272A" stroke-width="1"/>
+          <!-- 3 converging dynamic data streams into arrow -->
+          <line x1="9" y1="6" x2="9" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="14" y1="5" x2="14" y2="15" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="19" y1="6" x2="19" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M7.5 14.5L14 21L20.5 14.5" stroke="#FAFAFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-title">نسق</span>
+        <span class="brand-badge mono" dir="ltr">NDM v1.2.0</span>
       </div>
 
+      <nav class="nav-links">
+        <a href="#features">المعمارية والمميزات</a>
+        <a href="#screenshots">واجهة البرنامج</a>
+        <a href="#speed">تجزئة الاتصالات</a>
+        <a href="#download">التحميل والتحقق</a>
+      </nav>
+
+      <div>
+        <a href="#download" class="btn-primary" style="padding: 8px 16px; font-size: 0.8125rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>تحميل لنظام Windows</span>
+        </a>
+      </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="relative z-10 pt-16 pb-20 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <section class="hero">
+    <div class="container" style="position: relative; z-index: 1;">
       
-      <!-- Top Pill -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-blue-500/30 text-xs font-semibold text-blue-400 mb-8 shadow-inner animate-pulse">
-        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
-        <span>إصدار رسمي جديد ومحدث: v1.2.0 متاح الآن لنظام ويندوز</span>
+      <!-- Release Pill -->
+      <div class="release-pill">
+        <div class="status-indicator"></div>
+        <span class="mono" dir="ltr" style="font-weight: 600; color: var(--text-primary);">RELEASE v1.2.0</span>
+        <span style="color: var(--border-highlight);">|</span>
+        <span>متاح الآن لمعمارية Windows 64-bit</span>
       </div>
 
       <!-- Main Headline -->
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight max-w-5xl mx-auto mb-6">
-        أقصى سرعة تحميل ممكنة <br class="hidden sm:inline">
-        مع <span class="text-gradient">32 اتصال متوازي</span> وتقنيات ذكية
-      </h1>
+      <h1 class="hero-h1">مدير تحميل مبني للسرعة القصوى على Windows.</h1>
 
-      <!-- Subtitle -->
-      <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-        <strong>نسق (NDM)</strong> هو الجيل الجديد من برامج التحميل المصممة لويندوز. يضاعف سرعة تحميلك حتى 10 أضعاف بتقنية التجزئة المتقدمة، مع التقاط مباشر للفيديوهات، وتكامل ذكي مع كافة المتصفحات ونظام تحديثات تلقائي متكامل.
+      <!-- Sub-headline -->
+      <p class="hero-p">
+        يقسم نسق (NDM) الملفات الكبيرة إلى 32 مسار اتصال متوازي لاستغلال كامل سعة الشبكة، مع محرك مدمج لالتقاط الفيديوهات حتى 4K وتحميل قوائم التشغيل مباشرة بدون إعلانات.
       </p>
 
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-        <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-xl shadow-blue-500/30 transform hover:-translate-y-1 transition duration-200">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/>
+      <!-- Primary Actions -->
+      <div class="hero-actions">
+        <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe" class="btn-primary" style="padding: 14px 28px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          <div class="text-right">
-            <div class="text-xs font-normal opacity-90">تحميل مباشر لويندوز (64-بت)</div>
-            <div class="text-base font-extrabold">NDM_Setup.exe (v1.2.0)</div>
+          <div style="text-align: right;">
+            <div>تحميل التثبيت المباشر (NDM_Setup.exe)</div>
+            <div class="mono" dir="ltr" style="font-size: 0.6875rem; color: #52525B; font-weight: 500;">v1.2.0 • 47.15 MB • Windows 7/8/10/11</div>
           </div>
         </a>
 
-        <a href="#screenshots" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold text-slate-200 glass-card hover:bg-dark-accent hover:text-white transition duration-200">
-          <span>شاهد لقطات البرنامج الحية</span>
-          <svg class="w-5 h-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        <a href="#screenshots" class="btn-secondary">
+          <span>استعراض الواجهة بالداخل</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(180deg);">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+
+        <a href="https://github.com/ahmedsamir10090/ndm" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding: 12px 16px;" title="مستودع GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
           </svg>
         </a>
       </div>
 
-      <!-- Feature Badges Row -->
-      <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold text-slate-300">
-        <span class="px-3.5 py-1.5 rounded-lg glass-card border border-white/5 flex items-center gap-1.5">
-          <span class="text-green-400">✔</span> مجاني 100% بدون إعلانات
-        </span>
-        <span class="px-3.5 py-1.5 rounded-lg glass-card border border-white/5 flex items-center gap-1.5">
-          <span class="text-green-400">✔</span> فحص نظيف عبر Microsoft Defender
-        </span>
-        <span class="px-3.5 py-1.5 rounded-lg glass-card border border-white/5 flex items-center gap-1.5">
-          <span class="text-green-400">✔</span> يدعم Windows 7 و 8 و 10 و 11
-        </span>
-        <span class="px-3.5 py-1.5 rounded-lg glass-card border border-white/5 flex items-center gap-1.5">
-          <span class="text-green-400">✔</span> حجم الملف: 46.69 ميجابايت فقط
-        </span>
+      <!-- Specs Strip -->
+      <div class="specs-strip">
+        <div class="spec-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>مجاني ومفتوح بدون إعلانات</span>
+        </div>
+        <div class="spec-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>فحص آمن عبر Microsoft Defender</span>
+        </div>
+        <div class="spec-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>متوافق مع Windows 7 / 8 / 10 / 11</span>
+        </div>
+        <div class="spec-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span class="mono" dir="ltr">32 Parallel Connections</span>
+        </div>
       </div>
 
-      <!-- Hero Real Screenshot Preview -->
-      <div class="mt-14 max-w-5xl mx-auto relative group">
-        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
-        <div class="relative glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-          <div class="bg-dark-card/90 px-4 py-3 border-b border-dark-border flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-              <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-              <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-              <span class="text-xs font-mono text-slate-400 mr-2">Nasaq Download Manager v1.2.0 - الواجهة الرئيسية</span>
+    </div>
+  </section>
+
+  <!-- Native Windows App Showcase -->
+  <section id="screenshots" style="padding: 70px 0 90px 0;">
+    <div class="container">
+      
+      <div class="section-header">
+        <span class="section-tag mono" dir="ltr">INTERFACE &amp; WORKSPACE</span>
+        <h2 class="section-title">واجهة أصلية مصممة للإنتاجية والتحكم الدقيق</h2>
+        <p class="section-subtitle">تنظيم تلقائي للتنزيلات، متابعة لحظية لكل مسار اتصال، وتحكم كامل بدون نوافذ منبثقة مزعجة.</p>
+      </div>
+
+      <!-- Windows 11 Frame -->
+      <div class="win-window">
+        <!-- Realistic Windows 11 Title Bar -->
+        <div class="win-titlebar">
+          <div class="win-title-group">
+            <svg width="14" height="14" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="28" height="28" rx="6" fill="#18181C"/>
+              <line x1="9" y1="6" x2="9" y2="13" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+              <line x1="14" y1="5" x2="14" y2="15" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+              <line x1="19" y1="6" x2="19" y2="13" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7.5 14.5L14 21L20.5 14.5" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="mono" dir="ltr" style="color: var(--text-primary); font-weight: 500;">Nasaq Download Manager v1.2.0</span>
+            <span class="brand-badge mono" dir="ltr" style="border-color: #065F46; color: #10B981; background: rgba(16, 185, 129, 0.08);">32 Connections Active</span>
+          </div>
+
+          <!-- Windows 11 Native Controls: Minimize, Maximize, Close -->
+          <div class="win-controls" dir="ltr">
+            <div class="win-btn" title="Minimize">
+              <svg width="10" height="1" viewBox="0 0 10 1"><path d="M0 0.5h10" stroke="currentColor" stroke-width="1"/></svg>
             </div>
-            <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-mono">32 Connections Enabled</span>
+            <div class="win-btn" title="Maximize">
+              <svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            </div>
+            <div class="win-btn win-btn-close" title="Close">
+              <svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor" stroke-width="1"/></svg>
+            </div>
           </div>
-          <img src="assets/screenshots/main_window.png" alt="NDM Main Window" class="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-500">
+        </div>
+
+        <!-- Segmented Controls / IDE Tab Bar -->
+        <div class="tabs-bar" id="tabBar">
+          <button class="tab-btn active" onclick="switchTab('main', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
+            <span>لوحة التحكم الرئيسية</span>
+          </button>
+          <button class="tab-btn" onclick="switchTab('progress', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            <span>مراقبة 32 مسار اتصال</span>
+          </button>
+          <button class="tab-btn" onclick="switchTab('add', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            <span>إضافة تحميل وقص الفيديو</span>
+          </button>
+          <button class="tab-btn" onclick="switchTab('update', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+            <span>التحديث التلقائي الذكي</span>
+          </button>
+          <button class="tab-btn" onclick="switchTab('options', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+            <span>الإعدادات المتقدمة</span>
+          </button>
+        </div>
+
+        <!-- Viewport -->
+        <div class="screenshot-viewport">
+          <img id="activeScreenshot" src="assets/screenshots/main_window.png" alt="Nasaq Download Manager Workspace" class="screenshot-img">
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Live Screenshots Showcase Section -->
-  <section id="screenshots" class="relative z-10 py-24 bg-dark-card/40 border-y border-dark-border/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Asymmetric Bento Grid Features -->
+  <section id="features" style="padding: 70px 0 90px 0;">
+    <div class="container">
       
-      <div class="text-center max-w-3xl mx-auto mb-14">
-        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">استعراض مرئي حقيقي</h2>
-        <h3 class="text-3xl sm:text-4xl font-extrabold text-white">لقطات شاشة فعلية من داخل البرنامج</h3>
-        <p class="text-slate-400 mt-3 text-base">واجهة عصرية بتصميم داكن فاخر، شريط أدوات مألوف، وجداول بيانات دقيقة تمنحك تحكماً مطلقاً في كل بايت يتم تنزيله.</p>
+      <div class="section-header">
+        <span class="section-tag mono" dir="ltr">CORE ARCHITECTURE</span>
+        <h2 class="section-title">بنية هندسية مصممة للملفات الثقيلة والميديا</h2>
+        <p class="section-subtitle">معمارية تجزئة غير تزامنية تستغل كامل النطاق الترددي للسيرفر دون تجميد واجهة المستخدم.</p>
       </div>
 
-      <!-- Screenshot Tabs -->
-      <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
-        <button onclick="switchScreenshot('main', this)" class="screenshot-tab screenshot-active px-5 py-2.5 rounded-xl text-sm font-bold glass-card border border-transparent transition">
-          🖥️ الواجهة الرئيسية (Main Window)
-        </button>
-        <button onclick="switchScreenshot('progress', this)" class="screenshot-tab px-5 py-2.5 rounded-xl text-sm font-bold glass-card border border-transparent text-slate-400 hover:text-white transition">
-          ⚡ نافذة التحميل ومراقبة الـ 32 اتصال
-        </button>
-        <button onclick="switchScreenshot('add', this)" class="screenshot-tab px-5 py-2.5 rounded-xl text-sm font-bold glass-card border border-transparent text-slate-400 hover:text-white transition">
-          ➕ إضافة تحميل جديد واقتطاع الفيديو
-        </button>
-        <button onclick="switchScreenshot('update', this)" class="screenshot-tab px-5 py-2.5 rounded-xl text-sm font-bold glass-card border border-transparent text-slate-400 hover:text-white transition">
-          🔄 نافذة التحديث التلقائي المباشر
-        </button>
-        <button onclick="switchScreenshot('options', this)" class="screenshot-tab px-5 py-2.5 rounded-xl text-sm font-bold glass-card border border-transparent text-slate-400 hover:text-white transition">
-          ⚙️ إعدادات البرنامج المتقدمة
-        </button>
-      </div>
-
-      <!-- Active Screenshot Display Box -->
-      <div class="max-w-5xl mx-auto glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl p-4 sm:p-6">
-        <div class="mb-4 flex items-center justify-between border-b border-dark-border/80 pb-3">
+      <div class="bento-grid">
+        
+        <!-- Card 1: 32 Parallel Connections (Span 2 Columns) -->
+        <div class="bento-card bento-col-2">
           <div>
-            <h4 id="screenTitle" class="text-lg font-bold text-white">الواجهة الرئيسية (Dashboard)</h4>
-            <p id="screenDesc" class="text-xs text-slate-400">إدارة كافة التنزيلات بتصنيف ذكي للملفات (برامج، فيديوهات، مضغوطات، مستندات) مع شريط أدوات تحكم سريع.</p>
+            <h3 class="bento-card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+                <line x1="6" y1="6" x2="6.01" y2="6"/>
+                <line x1="6" y1="18" x2="6.01" y2="18"/>
+              </svg>
+              <span>تسريع التحميل عبر 32 مساراً متوازياً</span>
+            </h3>
+            <p class="bento-card-p">
+              يقسم الملف إلى أجزاء مستقلة ويفتح حتى 32 اتصالاً متزامناً مع السيرفر مع دمج مباشر على القرص الصلب دون استهلاك الذاكرة العشوائية.
+            </p>
           </div>
-          <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">لقطة أصلية غير معدلة</span>
+
+          <!-- Micro-UI: Thread Monitor Matrix -->
+          <div class="micro-ui">
+            <div style="display: flex; justify-content: space-between; align-items: center; color: var(--text-muted);" class="mono" dir="ltr">
+              <span>ACTIVE THREADS: 32/32</span>
+              <span style="color: var(--accent-primary); font-weight: 600;">18.5 MB/s</span>
+            </div>
+            <div class="thread-grid" dir="ltr">
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell filled"></div>
+              <div class="thread-cell pulsing"></div>
+              <div class="thread-cell pulsing"></div>
+              <div class="thread-cell pulsing"></div>
+              <div class="thread-cell pulsing"></div>
+            </div>
+          </div>
         </div>
-        
-        <div class="relative rounded-xl overflow-hidden bg-black/60 flex items-center justify-center min-h-[380px]">
-          <img id="mainScreenImg" src="assets/screenshots/main_window.png" alt="NDM Showcase" class="w-full max-h-[600px] object-contain rounded-lg shadow-lg">
+
+        <!-- Card 2: 4K Video Capture (Span 1 Column) -->
+        <div class="bento-card">
+          <div>
+            <h3 class="bento-card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+              <span>التقاط الفيديوهات حتى دقة 4K</span>
+            </h3>
+            <p class="bento-card-p">
+              التقاط مباشر وتحميل الفيديوهات من YouTube وFacebook وX وTikTok وVimeo مع دمج مسارات الصوت والفيديو تلقائياً.
+            </p>
+          </div>
+
+          <!-- Micro-UI: Format Tags -->
+          <div class="micro-ui">
+            <div class="tag-cluster">
+              <span class="tech-tag" style="border-color: #065F46; color: #10B981;">4K UHD</span>
+              <span class="tech-tag">1080p60</span>
+              <span class="tech-tag">MP4 / MKV</span>
+              <span class="tech-tag">Auto-Mux</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Card 3: Clip Download (Span 1 Column) -->
+        <div class="bento-card">
+          <div>
+            <h3 class="bento-card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+                <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+              </svg>
+              <span>قص وتحميل مقاطع محددة (Clip Download)</span>
+            </h3>
+            <p class="bento-card-p">
+              تحديد نقطة البداية والنهاية لتحميل الجزء المطلوب فقط من الفيديوهات الطويلة والمحاضرات دون تنزيل الملف بالكامل.
+            </p>
+          </div>
+
+          <!-- Micro-UI: Timeline Scrubber -->
+          <div class="micro-ui">
+            <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.6875rem;" class="mono" dir="ltr">
+              <span>01:15:00</span>
+              <span style="color: var(--accent-primary);">RANGE: 13m 45s</span>
+              <span>01:28:45</span>
+            </div>
+            <div class="timeline-bar">
+              <div class="timeline-selection"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Playlist Downloader (Span 1 Column) -->
+        <div class="bento-card">
+          <div>
+            <h3 class="bento-card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="8" y1="6" x2="21" y2="6"/>
+                <line x1="8" y1="12" x2="21" y2="12"/>
+                <line x1="8" y1="18" x2="21" y2="18"/>
+                <line x1="3" y1="6" x2="3.01" y2="6"/>
+                <line x1="3" y1="12" x2="3.01" y2="12"/>
+                <line x1="3" y1="18" x2="3.01" y2="18"/>
+              </svg>
+              <span>تنزيل القوائم والكورسات دفعة واحدة</span>
+            </h3>
+            <p class="bento-card-p">
+              جلب كامل حلقات قوائم التشغيل والكورسات التعليمية بضغطة واحدة مع ترقيم وترتيب تلقائي للملفات.
+            </p>
+          </div>
+
+          <!-- Micro-UI: Queue list items -->
+          <div class="micro-ui mono" dir="ltr" style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; justify-content: space-between; color: var(--text-secondary);">
+              <span>01. Course Architecture.mp4</span>
+              <span style="color: var(--accent-primary);">DONE</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: var(--text-muted);">
+              <span>02. Socket Streams.mp4</span>
+              <span>72%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Browser Integration (Span 1 Column) -->
+        <div class="bento-card">
+          <div>
+            <h3 class="bento-card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span>تكامل المتصفحات (Browser Extension)</span>
+            </h3>
+            <p class="bento-card-p">
+              ربط تلقائي مع Google Chrome وMicrosoft Edge وBrave لالتقاط الروابط والفيديوهات عبر زر عائم وقائمة السياق.
+            </p>
+          </div>
+
+          <!-- Micro-UI: Browser Badges -->
+          <div class="micro-ui">
+            <div class="tag-cluster">
+              <span class="tech-tag">Chrome Extension</span>
+              <span class="tech-tag">Edge Native</span>
+              <span class="tech-tag">Brave</span>
+              <span class="tech-tag" style="color: var(--accent-primary);">Native Host</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- Key Features Grid -->
-  <section id="features" class="relative z-10 py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Deep-Dive Technical Section: Dynamic Segmentation -->
+  <section id="speed" style="padding: 70px 0 90px 0;">
+    <div class="container">
       
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-500 mb-2">قدرات استثنائية</h2>
-        <h3 class="text-3xl sm:text-4xl font-extrabold text-white">كل ما تحتاجه لتجربة تحميل لا تضاهى</h3>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="deep-dive">
         
-        <!-- Feature 1 -->
-        <div class="glass-card rounded-2xl p-7 border border-white/5 hover:border-blue-500/40 transition duration-300 group">
-          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
-            ⚡
-          </div>
-          <h4 class="text-xl font-bold text-white mb-2.5">تسريع التحميل حتى 32 اتصال</h4>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            يقسم الملف إلى أجزاء متعددة ويقوم بتحميلها بالتوازي مستهلكاً كامل سعة اتصالك بالإنترنت بكفاءة وسرعة فائقة.
+        <!-- Right Column (RTL Text) -->
+        <div>
+          <span class="section-tag mono" dir="ltr">DYNAMIC SEGMENTATION ENGINE</span>
+          <h2 class="section-title" style="margin-top: 6px;">كيف يعمل محرك التجزئة الديناميكي؟</h2>
+          <p style="font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.7;">
+            بدلاً من الاعتماد على اتصال واحد محدود السرعة من السيرفر، يفتح نسق NDM ما بين 8 إلى 32 قناة اتصال مستقلة. كل قناة مسؤولة عن جلب نطاق بايتات (Byte-Range) محدد، ويتم كتابتها مباشرة على القرص لضمان أقصى سرعة ممكنة.
           </p>
-        </div>
 
-        <!-- Feature 2 -->
-        <div class="glass-card rounded-2xl p-7 border border-white/5 hover:border-blue-500/40 transition duration-300 group">
-          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
-            🎬
-          </div>
-          <h4 class="text-xl font-bold text-white mb-2.5">التقاط الفيديوهات المباشرة</h4>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            التقاط وتحميل الفيديوهات من يوتيوب، فيسبوك، إكس، تيك توك، فيميو بجودات متعددة حتى 4K مع دمج الصوت تلقائياً.
-          </p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="glass-card rounded-2xl p-7 border border-white/5 hover:border-blue-500/40 transition duration-300 group">
-          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
-            ✂️
-          </div>
-          <h4 class="text-xl font-bold text-white mb-2.5">تحميل أجزاء محددة (Clip Download)</h4>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            حدد وقت البداية والنهاية لتحميل المقطع الذي يهمك فقط من الفيديو دون الحاجة لتنزيل كامل المحتوى.
-          </p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="glass-card rounded-2xl p-7 border border-white/5 hover:border-blue-500/40 transition duration-300 group">
-          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
-            📚
-          </div>
-          <h4 class="text-xl font-bold text-white mb-2.5">تحميل القوائم والكورسات كاملة</h4>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            بضغطة واحدة، يمكنك جلب وتنزيل كامل حلقات الكورسات التعليمية أو قوائم التشغيل دفعة واحدة وبترتيب دقيق.
-          </p>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="glass-card rounded-2xl p-7 border border-white/5 hover:border-blue-500/40 transition duration-300 group">
-          <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
-            🌐
-          </div>
-          <h4 class="text-xl font-bold text-white mb-2.5">إضافة المتصفح الذكية (Browser Extension)</h4>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            تكامل تلقائي مع Google Chrome و Microsoft Edge و Brave مع زر تحميل عائم وقوائم سريعة بزر الفأرة الأيمن.
-          </p>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="glass-card rounded-2xl p-7 border border-white/5 hover:border-blue-500/40 transition duration-300 group">
-          <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
-            🔄
-          </div>
-          <h4 class="text-xl font-bold text-white mb-2.5">تحديثات تلقائية ويدوية بضغطة زر</h4>
-          <p class="text-sm text-slate-400 leading-relaxed">
-            فحص أوتوماتيكي عند التشغيل أو عبر قائمة Help للتأكد من حصولك دائماً على أحدث الميزات واستقرار الأداء.
-          </p>
-        </div>
-
-      </div>
-
-      <!-- Dynamic Tray Icon Feature Showcase -->
-      <div class="mt-14 glass-card rounded-3xl p-8 sm:p-10 border border-white/10">
-        <div class="text-center max-w-2xl mx-auto mb-8">
-          <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">تفاعل حي ومباشر</span>
-          <h4 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">أيقونة شريط النظام التفاعلية (Dynamic Tray States)</h4>
-          <p class="text-sm text-slate-400 mt-2">تتغير إضاءة أيقونة البرنامج بجوار الساعة فورياً مع حالة التنزيل لتمنحك متابعة فورية دون الحاجة لفتح النافذة:</p>
-        </div>
-        <div class="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-          <img src="assets/tray_showcase.png" alt="NDM System Tray States" class="w-full h-auto object-cover">
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Speed Section (Visual 32 Chunks Demo) -->
-  <section id="speed" class="relative z-10 py-20 bg-dark-accent/30 border-y border-dark-border/60">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="glass-card rounded-3xl p-8 sm:p-12 border border-blue-500/20 flex flex-col lg:flex-row items-center gap-10">
-        
-        <div class="flex-1 text-right">
-          <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">تكنولوجيا التجزئة الديناميكية</span>
-          <h3 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4">شريط الاتصالات المتعددة الحقيقي</h3>
-          <p class="text-slate-300 text-base leading-relaxed mb-6">
-            يقوم برنامج **نسق NDM** بفتح ما بين 8 إلى 32 مسار اتصال متوازي مع السيرفر. كل مسار يقوم بجلب جزء مختلف من الملف، ويتم دمج الأجزاء فائق السرعة وبشكل مباشر على القرص بدون إهدار للذاكرة أو إبطاء للجهاز.
-          </p>
-          <ul class="space-y-2.5 text-sm font-semibold text-slate-300">
-            <li class="flex items-center gap-2">
-              <span class="text-cyan-400">⚡</span> استئناف تلقائي للتحميل دون فقدان البيانات السابقة.
+          <ul class="check-list">
+            <li class="check-list-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>استئناف فوري للروابط المتوقفة أو المنتهية الصلاحية.</span>
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-cyan-400">⚡</span> جدول حي يعرض حالة وسرعة كل اتصال على حدة.
+            <li class="check-list-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>مراقبة حية لسرعة وحالة كل مسار اتصال على حدة.</span>
             </li>
-            <li class="flex items-center gap-2">
-              <span class="text-cyan-400">⚡</span> متوافق مع كافة بروتوكولات HTTP و HTTPS و FTP.
+            <li class="check-list-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>دعم كامل لبروتوكولات HTTP وHTTPS وFTP.</span>
             </li>
           </ul>
         </div>
 
-        <div class="flex-1 w-full max-w-md bg-dark-bg p-5 rounded-2xl border border-dark-border shadow-xl">
-          <div class="flex items-center justify-between text-xs text-slate-400 mb-3 font-mono">
-            <span>Connections: 32 Parallel Chunks</span>
-            <span class="text-green-400 font-bold">18.5 MB/s</span>
-          </div>
-          <!-- Simulated 32 segmented chunks -->
-          <div class="grid grid-cols-8 gap-1.5 p-2 bg-slate-900 rounded-lg border border-slate-800">
-            <div class="h-6 rounded bg-blue-500 animate-pulse"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-400"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-400"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-400"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-400"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-500"></div>
-            <div class="h-6 rounded bg-blue-400"></div>
-            <div class="h-6 rounded bg-cyan-400 animate-pulse"></div>
-          </div>
-          <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
-            <span>Downloaded: 3.45 GB / 4.80 GB (72%)</span>
-            <span>ETA: 00:01:12</span>
+        <!-- Left Column: Live Telemetry Visualizer -->
+        <div>
+          <div class="telemetry-card" dir="ltr">
+            <div class="telemetry-header">
+              <span>SOCKET MONITOR // 32 PARALLEL CHUNKS</span>
+              <span style="color: var(--accent-primary); font-weight: 600;">18.5 MB/s</span>
+            </div>
+
+            <!-- 32 Grid Cells -->
+            <div class="telemetry-body">
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell active"></div>
+              <div class="telemetry-cell partial"></div>
+              <div class="telemetry-cell partial"></div>
+              <div class="telemetry-cell partial"></div>
+              <div class="telemetry-cell partial"></div>
+              <div class="telemetry-cell partial"></div>
+              <div class="telemetry-cell"></div>
+              <div class="telemetry-cell"></div>
+              <div class="telemetry-cell"></div>
+            </div>
+
+            <div class="telemetry-footer">
+              <span>3.45 GB / 4.80 GB (72%)</span>
+              <span>ETA: 00:01:12</span>
+              <span style="color: var(--accent-primary);">DISK I/O: DIRECT WRITE</span>
+            </div>
           </div>
         </div>
 
       </div>
+
     </div>
   </section>
 
-  <!-- Download & Verification Section -->
-  <section id="download" class="relative z-10 py-24">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <!-- Download & SHA-256 Verification Section -->
+  <section id="download" style="padding: 70px 0 90px 0;">
+    <div class="container">
       
-      <div class="glass-card rounded-3xl p-8 sm:p-14 border border-blue-500/30 shadow-2xl relative overflow-hidden">
-        <div class="absolute -right-20 -top-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <img src="assets/logo.png" alt="NDM" class="w-20 h-20 mx-auto rounded-2xl shadow-xl shadow-blue-500/20 mb-6">
-        <h3 class="text-3xl sm:text-5xl font-black text-white mb-3">حمل نسق (NDM) الآن مجاناً</h3>
-        <p class="text-slate-300 text-base max-w-xl mx-auto mb-8">
-          برنامج التثبيت الشامل المعتمد، خفيف وسريع ولا يحتاج لأي برامج مساعدة. يدعم كافة إصدارات ويندوز الحديثة والقديمة.
+      <div class="download-card">
+        <span class="section-tag mono" dir="ltr">OFFICIAL DISTRIBUTION</span>
+        <h2 style="font-size: clamp(1.75rem, 3vw, 2.5rem); margin: 8px 0 12px 0;">
+          تحميل النسخة الرسمية المعتمدة — نسق NDM v1.2.0
+        </h2>
+        <p style="font-size: 0.9375rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 32px auto;">
+          ملف تثبيت مستقل وشامل (Standalone Installer) لا يتطلب أي حزم خارجية.
         </p>
 
-        <!-- Main Download Button -->
-        <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe" class="inline-flex items-center gap-3 px-10 py-5 rounded-2xl text-lg font-black text-white bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-2xl shadow-blue-500/40 transform hover:-translate-y-1 transition duration-200">
-          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/>
-          </svg>
-          <span>تنزيل NDM_Setup.exe (الإصدار 1.2.0)</span>
-        </a>
+        <div>
+          <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe" class="btn-primary" style="padding: 16px 36px; font-size: 1rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>تحميل التثبيت المباشر (NDM_Setup.exe)</span>
+          </a>
+          <div class="mono" dir="ltr" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">
+            v1.2.0 • 47.15 MB • Windows 7 / 8 / 10 / 11 (64-bit)
+          </div>
+        </div>
 
-        <!-- Checksum Box -->
-        <div class="mt-8 max-w-2xl mx-auto bg-dark-bg/90 p-4 rounded-xl border border-dark-border text-right text-xs text-slate-400 font-mono">
-          <div class="flex items-center justify-between mb-1.5 text-slate-300 font-sans font-semibold">
-            <span>بصمة التحقق والأمان الرسمية (SHA-256):</span>
-            <button onclick="copyHash()" id="copyBtn" class="text-xs text-blue-400 hover:text-blue-300 transition flex items-center gap-1 font-mono">
-              <span>نسخ البصمة</span> 📋
+        <!-- Terminal-Style Checksum Box -->
+        <div class="checksum-box">
+          <div class="checksum-label-row">
+            <span>بصمة التحقق الرسمية (SHA-256 Checksum):</span>
+            <button class="btn-copy" id="copyBtn" onclick="copyHash()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <span id="copyBtnText">نسخ البصمة</span>
             </button>
           </div>
-          <div id="hashText" class="break-all select-all text-slate-300 bg-slate-900/80 p-2.5 rounded border border-slate-800">
-            cf3803fad4fd08379cf11d3600f7c027e4d430e4810cc0a5d3559fe001d33a79
+          <div class="checksum-code mono" dir="ltr" id="hashText">cf3803fad4fd08379cf11d3600f7c027e4d430e4810cc0a5d3559fe001d33a79</div>
+          
+          <div style="margin-top: 12px; font-size: 0.75rem; color: var(--text-muted);">
+            للتحقق عبر PowerShell: <span class="mono" dir="ltr" style="color: var(--text-secondary);">Get-FileHash -Algorithm SHA256 .\NDM_Setup.exe</span>
           </div>
         </div>
 
@@ -447,91 +1190,56 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="mt-auto border-t border-dark-border/80 glass-card py-10 relative z-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-slate-400">
-      
-      <div class="flex items-center gap-3">
-        <img src="assets/logo.png" alt="NDM" class="w-8 h-8 rounded-lg">
-        <span class="font-bold text-white">Nasaq Download Manager &copy; 2026</span>
+  <!-- Minimal Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="28" height="28" rx="6" fill="#18181C" stroke="#27272A" stroke-width="1"/>
+          <line x1="9" y1="6" x2="9" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="14" y1="5" x2="14" y2="15" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="19" y1="6" x2="19" y2="13" stroke="#10B981" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M7.5 14.5L14 21L20.5 14.5" stroke="#FAFAFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="mono" dir="ltr">Nasaq Download Manager (NDM) &copy; 2026</span>
       </div>
 
-      <div class="flex items-center gap-6 font-semibold">
-        <a href="https://github.com/ahmedsamir10090/ndm" target="_blank" class="hover:text-white transition">مستودع GitHub</a>
-        <a href="https://github.com/ahmedsamir10090/ndm/releases" target="_blank" class="hover:text-white transition">جميع الإصدارات</a>
-        <a href="https://github.com/ahmedsamir10090/ndm/issues" target="_blank" class="hover:text-white transition">الدعم الفني والشكاوى</a>
+      <div class="footer-links">
+        <a href="https://github.com/ahmedsamir10090/ndm" target="_blank" rel="noopener noreferrer">مستودع GitHub</a>
+        <a href="https://github.com/ahmedsamir10090/ndm/releases" target="_blank" rel="noopener noreferrer">سجل الإصدارات (Releases)</a>
+        <a href="https://github.com/ahmedsamir10090/ndm/issues" target="_blank" rel="noopener noreferrer">الإبلاغ عن مشكلة (Issues)</a>
       </div>
-
     </div>
   </footer>
 
-  <!-- Script for Screenshot Switcher and Copy -->
+  <!-- Scripts -->
   <script>
     const screenshots = {
-      main: {
-        title: "الواجهة الرئيسية (Dashboard)",
-        desc: "إدارة كافة التنزيلات بتصنيف ذكي للملفات (برامج، فيديوهات، مضغوطات، مستندات) مع شريط أدوات تحكم سريع.",
-        src: "assets/screenshots/main_window.png"
-      },
-      progress: {
-        title: "نافذة التحميل ومراقبة الـ 32 اتصال",
-        desc: "جدول حي يوضح تفاصيل كل اتصال مع رسم بياني مقسم بالأزرق يوضح الأجزاء المنزلة والمتبقية من الملف.",
-        src: "assets/screenshots/download_progress.png"
-      },
-      add: {
-        title: "إضافة تحميل جديد واقتطاع الفيديو (Clip Trimmer)",
-        desc: "جلب تلقائي لرابط التحميل من الحافظة مع إمكانية تحديد جودة الفيديو وتحديد وقت البداية والنهاية لتحميل جزء محدد فقط.",
-        src: "assets/screenshots/add_download.png"
-      },
-      update: {
-        title: "نافذة التحديث التلقائي المباشر (Update Dialog)",
-        desc: "فحص فوري لأحدث إصدارات البرنامج، استعراض قائمة التحسينات الجديدة (Changelog)، والتحميل والتثبيت التلقائي بضغطة زر.",
-        src: "assets/screenshots/update_dialog.png"
-      },
-      options: {
-        title: "إعدادات البرنامج المتقدمة (Options Dialog)",
-        desc: "تخصيص عدد الاتصالات المتوازية (حتى 32 اتصال)، إدارة مجلدات الحفظ، تفعيل تكامل المتصفحات والتحكم في سلوك بدء التشغيل.",
-        src: "assets/screenshots/options_dialog.png"
-      }
+      main: 'assets/screenshots/main_window.png',
+      progress: 'assets/screenshots/download_progress.png',
+      add: 'assets/screenshots/add_download.png',
+      update: 'assets/screenshots/update_dialog.png',
+      options: 'assets/screenshots/options_dialog.png'
     };
 
-    function switchScreenshot(key, button) {
-      const data = screenshots[key];
-      if (!data) return;
-
-      document.querySelectorAll('.screenshot-tab').forEach(btn => btn.classList.remove('screenshot-active'));
-      button.classList.add('screenshot-active');
-
-      document.getElementById('screenTitle').textContent = data.title;
-      document.getElementById('screenDesc').textContent = data.desc;
-      document.getElementById('mainScreenImg').src = data.src;
+    function switchTab(key, btn) {
+      if (!screenshots[key]) return;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const img = document.getElementById('activeScreenshot');
+      img.src = screenshots[key];
     }
 
     function copyHash() {
       const hash = document.getElementById('hashText').textContent.trim();
       navigator.clipboard.writeText(hash).then(() => {
-        const btn = document.getElementById('copyBtn');
-        btn.innerHTML = '<span>تم النسخ بنجاح!</span> ✅';
+        const textSpan = document.getElementById('copyBtnText');
+        textSpan.textContent = 'تم النسخ';
         setTimeout(() => {
-          btn.innerHTML = '<span>نسخ البصمة</span> 📋';
-        }, 2500);
+          textSpan.textContent = 'نسخ البصمة';
+        }, 2200);
       });
     }
-
-    // Simple Language Toggle
-    let isArabic = true;
-    document.getElementById('langToggle').addEventListener('click', function() {
-      isArabic = !isArabic;
-      if (isArabic) {
-        document.documentElement.setAttribute('dir', 'rtl');
-        document.documentElement.setAttribute('lang', 'ar');
-        this.textContent = 'English';
-      } else {
-        document.documentElement.setAttribute('dir', 'ltr');
-        document.documentElement.setAttribute('lang', 'en');
-        this.textContent = 'العربية';
-      }
-    });
   </script>
 
 </body>
