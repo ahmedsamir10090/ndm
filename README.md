@@ -27,6 +27,9 @@
   <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe">
     <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.2.0)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
   </a>
+  <a href="https://ahmedsamir10090.github.io/ndm/">
+    <img src="https://img.shields.io/badge/%F0%9F%8C%90%20Live%20Website-ahmedsamir10090.github.io%2Fndm-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Live Website">
+  </a>
 </p>
 
 ---
@@ -36,6 +39,22 @@
 **Nasaq Download Manager (NDM)** is a powerful, lightweight, and modern download accelerator designed for Windows. Built to provide lightning-fast download speeds with dynamic multi-threaded segmentation (up to 32 parallel connections), comprehensive media sniffing (YouTube, Facebook, X, Vimeo, and more), full browser integration, and intelligent automatic in-app updates.
 
 **نسق (NDM)** هو برنامج تحميل عصري فائق السرعة لنظام ويندوز، صُمم ليمنحك أقصى سرعة ممكنة عبر تقنية الاتصالات المتعددة الديناميكية (من 8 إلى 32 اتصال متوازي)، مع دعم متطور لتحميل الفيديوهات من كافة المنصات العالمية والمحلية (يوتيوب، فيسبوك، إكس، تيك توك، فيميو وغيرها)، وتكامل كامل مع جميع المتصفحات، ونظام تحديثات تلقائي متكامل.
+
+---
+
+## 📸 Screenshots / لقطات حقيقية من داخل البرنامج
+
+### 1. الواجهة الرئيسية (Main Dashboard)
+![NDM Main Dashboard](assets/screenshots/main_window.png)
+
+### 2. نافذة مراقبة التحميل وتقسيم الـ 32 اتصال (Turbo Parallel Monitor)
+![NDM Download Progress](assets/screenshots/download_progress.png)
+
+### 3. إضافة تحميل جديد واقتطاع الفيديو (Smart Add Dialog & Clip Downloader)
+![NDM Add Download](assets/screenshots/add_download.png)
+
+### 4. التحديث التلقائي المباشر (One-Click In-App Updater)
+![NDM Update Dialog](assets/screenshots/update_dialog.png)
 
 ---
 
