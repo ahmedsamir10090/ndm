@@ -10,10 +10,10 @@
 
 <p align="center">
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
-    <img src="https://img.shields.io/badge/Release-v1.1.0-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.1.0">
+    <img src="https://img.shields.io/badge/Release-v1.2.0-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.2.0">
   </a>
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
-    <img src="https://img.shields.io/badge/Platform-Windows%207%20%7C%208%20%7C%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows" alt="Supported OS">
+    <img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows" alt="Supported OS">
   </a>
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
     <img src="https://img.shields.io/badge/Speed-Up%20to%2032%20Connections-success.svg?style=for-the-badge" alt="32 Connections">
@@ -24,8 +24,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.1.0/NDM_Setup.exe">
-    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.1.0)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
+  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe">
+    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.2.0)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
   </a>
   <a href="https://ahmedsamir10090.github.io/ndm/">
     <img src="https://img.shields.io/badge/%F0%9F%8C%90%20Live%20Website-ahmedsamir10090.github.io%2Fndm-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Live Website">
@@ -61,7 +61,7 @@
 ## 🚀 Key Features / أبرز المميزات
 
 ### 1. ⚡ Turbo Multi-Connection Engine (تسريع التحميل الخارق)
-* **Up to 32 Parallel Connections**: Segments files dynamically into chunks and downloads them simultaneously, maximizing your bandwidth up to 10x.
+* **Up to 32 Parallel Connections**: Segments files dynamically into chunks and downloads them simultaneously, with throughput determined by your connection and the source server.
 * **Live Connection Monitor**: Real-time visual chunk bar and connection table showing bytes received and speed for each individual thread, identical to IDM.
 * **Auto-Resume & Recovery**: Comprehensive support for pausing and resuming interrupted downloads without starting over.
 
@@ -82,7 +82,7 @@
 * **One-Click In-App Upgrade**: View release changelog, download update packages with SHA-256 verification, and automatically restart into the latest version.
 
 ### 5. 🖥️ Universal Windows Compatibility (توافق شامل مع جميع نسخ ويندوز)
-* Compatible with **Windows 7**, **Windows 8 / 8.1**, **Windows 10**, and **Windows 11** (64-bit).
+* Compatible with **Windows 10** and **Windows 11** (64-bit).
 * Standalone offline installer built with Inno Setup. No external runtimes or dependencies needed.
 
 ### 6. 🎨 Dynamic System Tray States & Multi-Resolution Icon (تفاعل أيقونة النظام الذكية)
@@ -106,7 +106,7 @@
 ### Official Download Link:
 | File | Version | Size | Checksum (SHA-256) |
 | :--- | :---: | :---: | :--- |
-| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe) | `1.2.0` | `47.15 MB` | `cf3803fad4fd08379cf11d3600f7c027e4d430e4810cc0a5d3559fe001d33a79` |
+| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe) | `1.2.0` | `56.67 MiB` | `48d1ac337e2dbb39b4d938998d4ab9bd8f16bddcb80329a908a563c1b85e16bc` |
 
 ### Quick Installation:
 1. Download **[NDM_Setup.exe](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe)**.
@@ -118,24 +118,27 @@
 
 ## 🔒 Security & Verification / التحقق والأمان
 
-All binary releases are compiled securely and verified against malicious threats:
-* **Microsoft Defender Security Intelligence**: Scanned and verified clean (`No malware detected`).
+Release files include checksums for verifying download integrity:
+* Verify the downloaded release with the SHA-256 checksums published alongside its assets.
 * **SHA-256 Hash Verification (PowerShell)**:
   ```powershell
   Get-FileHash -Algorithm SHA256 .\NDM_Setup.exe
   ```
   Expected Hash:
-  `cf3803fad4fd08379cf11d3600f7c027e4d430e4810cc0a5d3559fe001d33a79`
+  `48d1ac337e2dbb39b4d938998d4ab9bd8f16bddcb80329a908a563c1b85e16bc`
 
 ---
 
 ## 📋 Changelog (v1.2.0)
-* ✨ Complete rebrand to **Nasaq Download Manager (NDM)**.
-* ⚡ Multi-connection parallel acceleration enabled for all file types (8 to 32 connections).
-* 📊 Live connection monitor table and visual chunk map.
-* 🔄 Automatic and manual in-app update system.
-* 🎬 Accurate direct video size calculation and streaming fallback.
-* ✂️ Video clip cropping and full playlist downloading support.
+* Fixed Windows system-tray startup and the Qt/asyncio handoff that caused database lock errors.
+* Improved safe HTTP resume, source validation, cancellation, and crash recovery.
+* Added authenticated Chrome/Edge/Brave handoff with Alt bypass and native-download fallback.
+* Added image/bulk grabbing and torrent metadata/file selection workflows.
+* Hardened local pairing, credentials, TLS, and update size/SHA-256 verification.
+* Tested on Windows x64; advanced media and torrent coverage is still being expanded.
+
+### Full bundle / الحزمة الكاملة
+[Download the complete ZIP](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM-1.2.0-windows-x64.zip), extract all files, then run `NDM.exe`. Keep `_internal` and the other bundled resources beside it. Media merging may require FFmpeg.
 
 ---
 
