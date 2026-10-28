@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
-    <img src="https://img.shields.io/badge/Release-v1.2.0-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.2.0">
+    <img src="https://img.shields.io/badge/Release-v1.3.0-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.3.0">
   </a>
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
     <img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows" alt="Supported OS">
@@ -24,8 +24,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe">
-    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.2.0)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
+  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.0/NDM_Setup.exe">
+    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.3.0)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
   </a>
   <a href="https://ahmedsamir10090.github.io/ndm/">
     <img src="https://img.shields.io/badge/%F0%9F%8C%90%20Live%20Website-ahmedsamir10090.github.io%2Fndm-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Live Website">
@@ -106,10 +106,10 @@
 ### Official Download Link:
 | File | Version | Size | Checksum (SHA-256) |
 | :--- | :---: | :---: | :--- |
-| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe) | `1.2.0` | `56.67 MiB` | `48d1ac337e2dbb39b4d938998d4ab9bd8f16bddcb80329a908a563c1b85e16bc` |
+| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.0/NDM_Setup.exe) | `1.3.0` | `49.27 MiB` | `c3bba996a0b53e782687439f12db11db7da40cbd29e5817949f246bf9d87a7ac` |
 
 ### Quick Installation:
-1. Download **[NDM_Setup.exe](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM_Setup.exe)**.
+1. Download **[NDM_Setup.exe](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.0/NDM_Setup.exe)**.
 2. Run the installer and click **Next** ➔ **Install**.
 3. Launch **Nasaq Download Manager** from your desktop or Start Menu.
 4. (Optional) Load the browser extension in Chrome or Edge from the `browser_ext` folder located in your installation directory.
@@ -125,20 +125,19 @@ Release files include checksums for verifying download integrity:
   Get-FileHash -Algorithm SHA256 .\NDM_Setup.exe
   ```
   Expected Hash:
-  `48d1ac337e2dbb39b4d938998d4ab9bd8f16bddcb80329a908a563c1b85e16bc`
+  `c3bba996a0b53e782687439f12db11db7da40cbd29e5817949f246bf9d87a7ac`
 
 ---
 
-## 📋 Changelog (v1.2.0)
-* Fixed Windows system-tray startup and the Qt/asyncio handoff that caused database lock errors.
-* Improved safe HTTP resume, source validation, cancellation, and crash recovery.
-* Added authenticated Chrome/Edge/Brave handoff with Alt bypass and native-download fallback.
-* Added image/bulk grabbing and torrent metadata/file selection workflows.
-* Hardened local pairing, credentials, TLS, and update size/SHA-256 verification.
-* Tested on Windows x64; advanced media and torrent coverage is still being expanded.
+## 📋 Changelog (v1.3.0)
+* Added full-season download: discovers sibling episodes and queues the selected ones in one batch.
+* Resolves the real episode stream from site players and mirrors instead of downloading embedded YouTube trailers.
+* Real video thumbnails in the download dialog and the downloads list, plus an automatic frame after completion.
+* Downloads now go directly to `Downloads\Videos`, `Downloads\Audio`, etc.; unknown categories go to `Downloads`.
+* Improved resume, cancellation, connection budgets, error reporting, and UI defaults.
 
 ### Full bundle / الحزمة الكاملة
-[Download the complete ZIP](https://github.com/ahmedsamir10090/ndm/releases/download/v1.2.0/NDM-1.2.0-windows-x64.zip), extract all files, then run `NDM.exe`. Keep `_internal` and the other bundled resources beside it. Media merging may require FFmpeg.
+[Download the complete ZIP](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.0/NDM-1.3.0-windows-x64.zip), extract all files, then run `NDM.exe`. Keep `_internal` and the other bundled resources beside it. Media merging may require FFmpeg.
 
 ---
 
