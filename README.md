@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
-    <img src="https://img.shields.io/badge/Release-v1.3.3-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.3.3">
+    <img src="https://img.shields.io/badge/Release-v1.3.4-blue.svg?style=for-the-badge&logo=windows" alt="Version 1.3.4">
   </a>
   <a href="https://github.com/ahmedsamir10090/ndm/releases/latest">
     <img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg?style=for-the-badge&logo=windows" alt="Supported OS">
@@ -24,8 +24,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.3/NDM_Setup.exe">
-    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.3.3)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
+  <a href="https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.4/NDM_Setup.exe">
+    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-NDM__Setup.exe%20(v1.3.4)-2ea44f?style=for-the-badge&logo=windows&logoColor=white" height="42" alt="Download NDM Setup">
   </a>
   <a href="https://ahmedsamir10090.github.io/ndm/">
     <img src="https://img.shields.io/badge/%F0%9F%8C%90%20Live%20Website-ahmedsamir10090.github.io%2Fndm-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white" height="42" alt="Live Website">
@@ -106,10 +106,10 @@
 ### Official Download Link:
 | File | Version | Size | Checksum (SHA-256) |
 | :--- | :---: | :---: | :--- |
-| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.3/NDM_Setup.exe) | `1.3.3` | `49.42 MiB` | `a72710ac7cfe191765c43c4522848cd861302c7fedf733ffcf5eaee7815ef065` |
+| [**NDM_Setup.exe**](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.4/NDM_Setup.exe) | `1.3.4` | `49.43 MiB` | `1a22625046b5a3221f980b2b5b406706b4887b441c18f632ca0742cb981cfa34` |
 
 ### Quick Installation:
-1. Download **[NDM_Setup.exe](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.3/NDM_Setup.exe)**.
+1. Download **[NDM_Setup.exe](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.4/NDM_Setup.exe)**.
 2. Run the installer and click **Next** ➔ **Install**.
 3. Launch **Nasaq Download Manager** from your desktop or Start Menu.
 4. (Optional) Load the browser extension in Chrome or Edge from the `browser_ext` folder located in your installation directory.
@@ -125,19 +125,17 @@ Release files include checksums for verifying download integrity:
   Get-FileHash -Algorithm SHA256 .\NDM_Setup.exe
   ```
   Expected Hash:
-  `a72710ac7cfe191765c43c4522848cd861302c7fedf733ffcf5eaee7815ef065`
+  `1a22625046b5a3221f980b2b5b406706b4887b441c18f632ca0742cb981cfa34`
 
 ---
 
-## 📋 Changelog (v1.3.3)
-* Turbo Multi-Connection Range Engine: full support for up to 32 parallel range connections for video, audio, and media streams.
-* Universal Confirmed Transfer Size: calculates and displays confirmed transfer size instantly from server response across all supported sites.
-* Database Persistence: transfer total size and download states are stored and recovered reliably across app restarts, pause, and resume.
-* Windows Taskbar Progress: dynamic taskbar icon progress bar with visual state colors (Green for active, Amber for paused, Red for error).
-* Safe YouTube Extraction: eliminated INNERTUBE_CONTEXT errors, sanitized request headers, and routed YouTube streams through safe native handlers.
+## 📋 Changelog (v1.3.4)
+* Stable Async Timer Scheduler: replaced qasync's per-callback native timers with a single heap-based QTimer scheduler, eliminating UI and progress freezes during high-speed multi-connection downloads.
+* Bounded Obsolete Drain: after dynamic segmentation shrinks an in-flight chunk, the engine stops discarding the oversized response within two seconds instead of waiting for the server to reset, so downloads no longer stall at 99.9%.
+* Regression Coverage: added tests for the timer scheduler and the split-drain path; the full unit suite passes and the packaged EXE smoke test is clean.
 
 ### Full bundle / الحزمة الكاملة
-[Download the complete ZIP](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.3/NDM-1.3.3-windows-x64.zip), extract all files, then run `NDM.exe`. Keep `_internal` and the other bundled resources beside it. Media merging may require FFmpeg.
+[Download the complete ZIP](https://github.com/ahmedsamir10090/ndm/releases/download/v1.3.4/NDM-1.3.4-windows-x64.zip), extract all files, then run `NDM.exe`. Keep `_internal` and the other bundled resources beside it. Media merging may require FFmpeg.
 
 ---
 
